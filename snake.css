@@ -4,6 +4,7 @@ html, ul, li, p {
   border: 0;
   font: inherit;
   text-align: inherit;
+  background: transparent;
 }
 
 body {
@@ -14,8 +15,50 @@ ul {
   list-style: none;
 }
 
+header {
+  font-size: 28px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+div.play-or-pause,
+div.message,
+div.points {
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+div.message {
+  width: 200px;
+}
+
+div.points {
+  width: 100px;
+}
+
+div.play-or-pause {
+  width: 350px;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+div.play-or-pause:hover {
+  box-shadow: 2px 2px 2px green;
+}
+
+div.play-or-pause,
+header,
+div.points,
+div.message {
+  background: #B7DB84;
+  border: 1px solid green;
+}
+
 .game-board {
-  margin: 100px auto;
+  margin: 20px auto;
   border: 2px solid black;
   width: 400px;
 }
@@ -40,5 +83,6 @@ li.snake {
 }
 
 li.apple {
-  background: red;
+  background-image: url("apple.png");
+  background-size: cover;
 }

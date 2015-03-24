@@ -3,26 +3,41 @@
     window.SnakeGame = {};
   }
 
-  var View = SnakeGame.View = function ($el) {
-    this.board = new SnakeGame.Board();
+  var View = SnakeGame.View = function ($el, board) {
     this.$el = $el;
+    this.board = board;
     this.bindEvents();
     this.setupBoard();
-    this.intervalId = window.setInterval(this.step.bind(this), 500)
+    this.paused = true;
   };
 
-  View.prototype.step = function() {
-    if (this.board.snake.segments.length > 0) {
-      this.board.snake.move();
-
-      this.board.render();
-      this.updateColors();
+  View.prototype.playOrPause = function() {
+    if (this.paused) {
+      this.intervalId = window.setInterval(this.step.bind(this), 250)
+      $(".play-or-pause").html("Pause (spacebar)");
+      this.paused = false;
+      console.log("if")
     } else {
-      alert("Game Over!");
       window.clearInterval(this.intervalId);
+      $(".play-or-pause").html("Play!");
+      this.paused = true;
+      console.log("else")
     }
   };
 
+  View.prototype.step = function() {
+    this.board.snake.move();
+    if (this.board.is_over()) {
+      window.clearInterval(this.intervalId);
+
+      $(".message").html("Game Over!")
+      $(".message").css("background", "red")
+      $(".play-or-pause").html("click 'Snake!' to start a new game")
+    } else {
+      this.updateColors();
+      this.board.updatePoints();
+    }
+  };
 
   View.prototype.setupBoard = function ( ) {
     var html = "<ul class='game-board group'>";
@@ -51,15 +66,25 @@
     var appleId = apple_coord.x * SnakeGame.Board.DIM_X + apple_coord.y
     var $appleTile = $("li[data-id='" + appleId + "']")
     $appleTile.addClass("apple");
-
   };
 
   View.prototype.bindEvents = function () {
     var view = this;
     $(document).on("keydown", function(event){
       event.preventDefault();
-      view.snakeTurn(event.which);
+      if (!view.paused) {
+        view.snakeTurn(event.which);
+      }
     })
+    $(document).on("keydown", function(event){
+      event.preventDefault();
+      if (event.which === 32) {
+        view.playOrPause();
+      }
+    })
+    $(".play-or-pause").click( function(event) {
+      view.playOrPause();
+    });
   };
 
   View.prototype.snakeTurn = function(code) {

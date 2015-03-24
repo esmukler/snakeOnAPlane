@@ -3,6 +3,8 @@
     window.SnakeGame = {};
   }
 
+//  SNAKE CLASS
+
  var Snake = SnakeGame.Snake = function (board) {
    this.board = board;
    this.segments = [Coord.generateRandom()];
@@ -12,12 +14,10 @@
  Snake.prototype.move = function () {
    var newSeg = new Coord(this.segments[0].plus(this.dir));
    this.segments.unshift(newSeg);
-   console.log(this.eatsApple())
 
    if (!this.eatsApple()) {
      var pos = this.segments.pop();
    } else {
-     console.log("eats apple!")
      this.board.regenerateApple();
    }
  };
@@ -27,10 +27,16 @@
  };
 
  Snake.prototype.turn = function (dir) {
-   this.dir = dir;
+   var currentIdx = Snake.DIR.indexOf(this.dir)
+   var newIdx = Snake.DIR.indexOf(dir)
+   if ((currentIdx + newIdx) % 2 !== 0) {
+     this.dir = dir;
+   }
  };
 
  Snake.DIR = ["N","E","S","W"];
+
+ //  COORD CLASS
 
  var Coord = SnakeGame.Coord = function (pos) {
    this.x = pos[0];
@@ -66,6 +72,8 @@
    return new Coord([x,y]);
  };
 
+ //  APPLE CLASS
+
  var Apple = SnakeGame.Apple = function(board) {
    this.board = board;
    this.coord = this.randomApple();
@@ -79,6 +87,8 @@
    }
   return coord
  };
+
+ //  BOARD CLASS
 
  var Board = SnakeGame.Board = function () {
    this.grid = this.setUpBoard();
@@ -107,37 +117,51 @@ Board.prototype.regenerateApple = function() {
 
 Board.prototype.is_over = function() {
   var is_over = false
-  this.snake.segments.forEach( function(seg) {
-    if ((seg.y >= Board.DIM_Y) || (seg.y < 0) || (seg.x >= Board.DIM_X) || (seg.x < 0)) {
+  var segments = this.snake.segments;
+  for (var i = 0; i < segments.length; i++) {
+    // SNAKE goes out of bounds
+    if ((segments[i].y >= Board.DIM_Y) || (segments[i].y < 0) ||
+        (segments[i].x >= Board.DIM_X) || (segments[i].x < 0)) {
       is_over = true;
     }
-  })
+    // SNAKE runs into itself
+    for (var j = i + 1; j < segments.length; j++) {
+      if (segments[i].equals(segments[j])) {
+        is_over = true;
+      }
+    }
+  }
   return is_over;
 };
 
-Board.prototype.render = function () {
-  if (this.is_over()) {
-    console.log("Game Over!")
-    this.snake.segments = [];
-  } else {
-    var grid = this.grid;
-    var gridString = ""
-    for (var i = 0; i < Board.DIM_X; i++) {
-      for (var j = 0; j < Board.DIM_Y; j++) {
-        grid[i][j] = ".";
-      }
-    }
-    this.snake.segments.forEach(function (el){
-      grid[el.x][el.y] = "s";
-    })
-    for (var i = 0; i < Board.DIM_X; i++) {
-      for (var j = 0; j < Board.DIM_Y; j++) {
-        gridString += grid[i][j];
-      }
-      gridString += "\n";
-    }
-    console.log(gridString);
-  }
+Board.prototype.updatePoints = function() {
+  var points = (this.snake.segments.length - 1) * 10;
+  $(".points").html(points + " points");
 }
+
+// Board.prototype.render = function () {
+//   if (this.is_over()) {
+//     console.log("Game Over!")
+//     this.snake.segments = [];
+//   } else {
+//     // var grid = this.grid;
+//     // var gridString = ""
+//     // for (var i = 0; i < Board.DIM_X; i++) {
+//     //   for (var j = 0; j < Board.DIM_Y; j++) {
+//     //     grid[i][j] = ".";
+//     //   }
+//     // }
+//     // this.snake.segments.forEach(function (el){
+//     //   grid[el.x][el.y] = "s";
+//     // })
+//     // for (var i = 0; i < Board.DIM_X; i++) {
+//     //   for (var j = 0; j < Board.DIM_Y; j++) {
+//     //     gridString += grid[i][j];
+//     //   }
+//     //   gridString += "\n";
+//     // }
+//     // console.log(gridString);
+//   }
+// }
 
 })();

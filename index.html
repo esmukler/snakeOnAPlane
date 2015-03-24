@@ -12,18 +12,23 @@
     <script src="./snakeView.js"></script>
     <link rel="stylesheet" type="text/css" href="snake.css">
 
+    <header>Snake!</header>
+    <div class="message">Eat them apples!</div>
+    <div class="points">0 points</div>
+    <div class="play-or-pause">Play!</div>
     <figure></figure>
-    <button>Reset</button>
 
     <script>
       $(function(){
         var $body = $("figure")
-        var view = new SnakeGame.View($body);
-
-        $("button").on("click", function(event) {
-          view.off();
-          // game = new TTT.Game();
-          // view = new TTT.View(game, $body);
+        var board = new SnakeGame.Board();
+        var view = new SnakeGame.View($body, board);
+        $("header").click(function(event) {
+          var newBoard = new SnakeGame.Board();
+          var newView = new SnakeGame.View($body, newBoard)
+          newView.playOrPause();
+          $(".message").html("Eat them apples!")
+          $(".message").css("background", "#B7DB84")
         })
       })
     </script>
