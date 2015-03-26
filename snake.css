@@ -86,3 +86,23 @@ li.apple {
   background-image: url("apple.png");
   background-size: cover;
 }
+
+.modal-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: rgba(0,0,0,0.8);
+}
+
+.modal-form {
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+
+.hidden {
+  display: none;
+}

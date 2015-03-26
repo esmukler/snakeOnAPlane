@@ -13,23 +13,39 @@
     <link rel="stylesheet" type="text/css" href="snake.css">
 
     <header>Snake!</header>
-    <div class="message">Eat them apples!</div>
-    <div class="points">0 points</div>
+
+    <div class="speed-btns">
+      <label>Easy
+        <input type="radio" name="speed" value="500" checked>
+      </label>
+
+      <label>Medium
+        <input type="radio" name="speed" value="300">
+      </label>
+
+      <label>Hard
+        <input type="radio" name="speed" value="100">
+      </label>
+    </div>
     <div class="play-or-pause">Play!</div>
+
+    <div class="points">0 points</div>
     <figure></figure>
 
+    <div class="modal hidden">
+      <div class="modal-screen"></div>
+      <div class="modal-form">Game Over!</div>
+    </div>
     <script>
       $(function(){
         var $body = $("figure")
         var board = new SnakeGame.Board();
         var view = new SnakeGame.View($body, board);
-        $("header").click(function(event) {
-          var newBoard = new SnakeGame.Board();
-          var newView = new SnakeGame.View($body, newBoard)
-          newView.playOrPause();
-          $(".message").html("Eat them apples!")
-          $(".message").css("background", "#B7DB84")
-        })
+        // $("header").click(function(event) {
+        //   var newBoard = new SnakeGame.Board();
+        //   var newView = new SnakeGame.View($body, newBoard)
+        //   newView.playOrPause();
+        // })
       })
     </script>
   </body>

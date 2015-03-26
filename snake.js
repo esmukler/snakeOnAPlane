@@ -3,15 +3,68 @@
     window.SnakeGame = {};
   }
 
+  //  BOARD CLASS
+
+  var Board = SnakeGame.Board = function () {
+    this.grid = this.setUpBoard();
+    this.snake = new Snake(this);
+    this.apple = new Apple(this);
+  }
+
+  Board.DIM_X = 20;
+  Board.DIM_Y = 20;
+
+  Board.prototype.setUpBoard = function () {
+    var grid = [];
+    for (var i = 0; i < Board.DIM_X; i++) {
+      grid.push([]);
+      for (var j = 0; j < Board.DIM_Y; j++) {
+        grid[i].push(".");
+      }
+    }
+    return grid;
+  };
+
+  Board.prototype.regenerateApple = function() {
+    this.apple = null;
+    this.apple = new Apple(this)
+  };
+
+  Board.prototype.is_over = function() {
+    var is_over = false
+    var segments = this.snake.segments;
+    for (var i = 0; i < segments.length; i++) {
+      // SNAKE goes out of bounds
+      if ((segments[i].y >= Board.DIM_Y) || (segments[i].y < 0) ||
+      (segments[i].x >= Board.DIM_X) || (segments[i].x < 0)) {
+        is_over = true;
+      }
+      // SNAKE runs into itself
+      for (var j = i + 1; j < segments.length; j++) {
+        if (segments[i].equals(segments[j])) {
+          is_over = true;
+        }
+      }
+    }
+    return is_over;
+  };
+
+  Board.prototype.updatePoints = function() {
+    var points = (this.snake.segments.length - 1) * 10;
+    $(".points").html(points + " points");
+  }
+
 //  SNAKE CLASS
 
  var Snake = SnakeGame.Snake = function (board) {
    this.board = board;
    this.segments = [Coord.generateRandom()];
    this.dir = "E";
+   this.inputDir = "E";
  }
 
  Snake.prototype.move = function () {
+   this.dir = this.inputDir;
    var newSeg = new Coord(this.segments[0].plus(this.dir));
    this.segments.unshift(newSeg);
 
@@ -30,7 +83,7 @@
    var currentIdx = Snake.DIR.indexOf(this.dir)
    var newIdx = Snake.DIR.indexOf(dir)
    if ((currentIdx + newIdx) % 2 !== 0) {
-     this.dir = dir;
+     this.inputDir = dir;
    }
  };
 
@@ -81,87 +134,11 @@
 
  Apple.prototype.randomApple = function() {
    var coord = generateRandom();
-
    while (this.board.snake.segments.indexOf(coord) !== -1) {
+     console.log("hello")
      coord = generateRandom();
    }
   return coord
  };
-
- //  BOARD CLASS
-
- var Board = SnakeGame.Board = function () {
-   this.grid = this.setUpBoard();
-   this.snake = new Snake(this);
-   this.apple = new Apple(this);
- }
-
- Board.DIM_X = 20;
- Board.DIM_Y = 20;
-
-Board.prototype.setUpBoard = function () {
-  var grid = [];
-  for (var i = 0; i < Board.DIM_X; i++) {
-    grid.push([]);
-    for (var j = 0; j < Board.DIM_Y; j++) {
-      grid[i].push(".");
-    }
-  }
-  return grid;
-};
-
-Board.prototype.regenerateApple = function() {
-  this.apple = null;
-  this.apple = new Apple(this)
-};
-
-Board.prototype.is_over = function() {
-  var is_over = false
-  var segments = this.snake.segments;
-  for (var i = 0; i < segments.length; i++) {
-    // SNAKE goes out of bounds
-    if ((segments[i].y >= Board.DIM_Y) || (segments[i].y < 0) ||
-        (segments[i].x >= Board.DIM_X) || (segments[i].x < 0)) {
-      is_over = true;
-    }
-    // SNAKE runs into itself
-    for (var j = i + 1; j < segments.length; j++) {
-      if (segments[i].equals(segments[j])) {
-        is_over = true;
-      }
-    }
-  }
-  return is_over;
-};
-
-Board.prototype.updatePoints = function() {
-  var points = (this.snake.segments.length - 1) * 10;
-  $(".points").html(points + " points");
-}
-
-// Board.prototype.render = function () {
-//   if (this.is_over()) {
-//     console.log("Game Over!")
-//     this.snake.segments = [];
-//   } else {
-//     // var grid = this.grid;
-//     // var gridString = ""
-//     // for (var i = 0; i < Board.DIM_X; i++) {
-//     //   for (var j = 0; j < Board.DIM_Y; j++) {
-//     //     grid[i][j] = ".";
-//     //   }
-//     // }
-//     // this.snake.segments.forEach(function (el){
-//     //   grid[el.x][el.y] = "s";
-//     // })
-//     // for (var i = 0; i < Board.DIM_X; i++) {
-//     //   for (var j = 0; j < Board.DIM_Y; j++) {
-//     //     gridString += grid[i][j];
-//     //   }
-//     //   gridString += "\n";
-//     // }
-//     // console.log(gridString);
-//   }
-// }
 
 })();

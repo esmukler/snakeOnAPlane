@@ -6,14 +6,15 @@
   var View = SnakeGame.View = function ($el, board) {
     this.$el = $el;
     this.board = board;
-    this.bindEvents();
     this.setupBoard();
+    this.bindEvents();
     this.paused = true;
+    this.speed = 500;
   };
 
   View.prototype.playOrPause = function() {
     if (this.paused) {
-      this.intervalId = window.setInterval(this.step.bind(this), 250)
+      this.intervalId = window.setInterval(this.step.bind(this), this.speed)
       $(".play-or-pause").html("Pause (spacebar)");
       this.paused = false;
       console.log("if")
@@ -24,6 +25,30 @@
       console.log("else")
     }
   };
+
+  View.prototype.bindEvents = function () {
+    var view = this;
+    $(".play-or-pause").click(function(event) {
+      view.speed = $('input[name="speed"]:checked').val();
+    })
+
+    $(document).on("keydown", function(event){
+      event.preventDefault();
+      if (!view.paused) {
+        view.snakeTurn(event.which);
+      }
+    })
+    $(document).on("keydown", function(event){
+      event.preventDefault();
+      if (event.which === 32) {
+        view.playOrPause();
+      }
+    })
+    $(".play-or-pause").click( function(event) {
+      view.playOrPause();
+    });
+  };
+
 
   View.prototype.step = function() {
     this.board.snake.move();
@@ -68,24 +93,6 @@
     $appleTile.addClass("apple");
   };
 
-  View.prototype.bindEvents = function () {
-    var view = this;
-    $(document).on("keydown", function(event){
-      event.preventDefault();
-      if (!view.paused) {
-        view.snakeTurn(event.which);
-      }
-    })
-    $(document).on("keydown", function(event){
-      event.preventDefault();
-      if (event.which === 32) {
-        view.playOrPause();
-      }
-    })
-    $(".play-or-pause").click( function(event) {
-      view.playOrPause();
-    });
-  };
 
   View.prototype.snakeTurn = function(code) {
     if(code === 37){
