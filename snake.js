@@ -9,6 +9,7 @@
     this.grid = this.setUpBoard();
     this.snake = new Snake(this);
     this.apple = new Apple(this);
+    this.points = 0;
   }
 
   Board.DIM_X = 20;
@@ -50,18 +51,20 @@
   };
 
   Board.prototype.updatePoints = function() {
-    var points = (this.snake.segments.length - 1) * 10;
-    $(".points").html(points + " points");
+    this.points = (this.snake.segments.length - 1) * 10;
+    $(".points").html(this.points + " points");
   }
 
 //  SNAKE CLASS
 
  var Snake = SnakeGame.Snake = function (board) {
    this.board = board;
-   this.segments = [Coord.generateRandom()];
+   this.segments = [new Coord([Board.DIM_X / 2, Board.DIM_Y / 2])];
    this.dir = "E";
    this.inputDir = "E";
  }
+
+ Snake.DIR = ["N","E","S","W"];
 
  Snake.prototype.move = function () {
    this.dir = this.inputDir;
@@ -72,6 +75,7 @@
      var pos = this.segments.pop();
    } else {
      this.board.regenerateApple();
+     this.board.updatePoints();
    }
  };
 
@@ -87,9 +91,7 @@
    }
  };
 
- Snake.DIR = ["N","E","S","W"];
-
- //  COORD CLASS
+//  COORD CLASS
 
  var Coord = SnakeGame.Coord = function (pos) {
    this.x = pos[0];

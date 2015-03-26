@@ -47,21 +47,37 @@
     $(".play-or-pause").click( function(event) {
       view.playOrPause();
     });
+
+    $("button.reset").click( function(event) {
+      view.reset();
+    })
   };
 
+  View.prototype.reset = function() {
+    $(".modal").toggleClass("hidden");
+    $("body").css("overflow", "initial");
+    this.board = null;
+    this.$el.off();
+    this.board = new SnakeGame.Board();
+    this.setupBoard();
+    this.playOrPause();
+    $(".points").html("0 points")
+  };
 
   View.prototype.step = function() {
     this.board.snake.move();
     if (this.board.is_over()) {
-      window.clearInterval(this.intervalId);
-
-      $(".message").html("Game Over!")
-      $(".message").css("background", "red")
-      $(".play-or-pause").html("click 'Snake!' to start a new game")
+      this.gameOver();
     } else {
       this.updateColors();
-      this.board.updatePoints();
     }
+  };
+
+  View.prototype.gameOver = function() {
+    window.clearInterval(this.intervalId);
+    $(".modal").toggleClass("hidden");
+    $("body").css("overflow", "hidden");
+    $(".modal-form span.points").html(this.board.points)
   };
 
   View.prototype.setupBoard = function ( ) {

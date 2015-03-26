@@ -34,18 +34,16 @@
 
     <div class="modal hidden">
       <div class="modal-screen"></div>
-      <div class="modal-form">Game Over!</div>
+      <div class="modal-form">Game Over!
+        <div class="score">Final Score: <span class="points"></span> points</div>
+        <button class="reset">Try again?</button>
+      </div>
     </div>
     <script>
       $(function(){
         var $body = $("figure")
         var board = new SnakeGame.Board();
         var view = new SnakeGame.View($body, board);
-        // $("header").click(function(event) {
-        //   var newBoard = new SnakeGame.Board();
-        //   var newView = new SnakeGame.View($body, newBoard)
-        //   newView.playOrPause();
-        // })
       })
     </script>
   </body>

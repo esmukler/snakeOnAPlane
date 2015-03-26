@@ -2,7 +2,7 @@ html, ul, li, p {
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
+  font: "inherit";
   text-align: inherit;
   background: transparent;
 }
@@ -98,9 +98,17 @@ li.apple {
 }
 
 .modal-form {
-  background: red;
-  width: 100px;
-  height: 100px;
+  background: #F28F91;
+  border-radius: 10px;
+  padding: 100px;
+  font-size: 20px;
+  position: fixed;
+  margin: 100px 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 300px;
+  height: 300px;
+  top:0;
 }
 
 .hidden {
