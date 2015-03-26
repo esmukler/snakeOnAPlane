@@ -11,34 +11,35 @@
     <script src="./snake.js"></script>
     <script src="./snakeView.js"></script>
     <link rel="stylesheet" type="text/css" href="snake.css">
+    <main>
+      <header>Snake on a Plane</header>
 
-    <header>Snake!</header>
+      <div class="speed-btns">
+        <label>Easy
+          <input type="radio" name="speed" value="500" checked>
+        </label>
 
-    <div class="speed-btns">
-      <label>Easy
-        <input type="radio" name="speed" value="500" checked>
-      </label>
+        <label>Medium
+          <input type="radio" name="speed" value="300">
+        </label>
 
-      <label>Medium
-        <input type="radio" name="speed" value="300">
-      </label>
-
-      <label>Hard
-        <input type="radio" name="speed" value="100">
-      </label>
-    </div>
-    <div class="play-or-pause">Play!</div>
-
-    <div class="points">0 points</div>
-    <figure></figure>
-
-    <div class="modal hidden">
-      <div class="modal-screen"></div>
-      <div class="modal-form">Game Over!
-        <div class="score">Final Score: <span class="points"></span> points</div>
-        <button class="reset">Try again?</button>
+        <label>Hard
+          <input type="radio" name="speed" value="100">
+        </label>
       </div>
-    </div>
+      <div class="play-or-pause">Play!</div>
+
+      <div class="points">0 points</div>
+      <figure></figure>
+
+      <div class="modal hidden">
+        <div class="modal-screen"></div>
+        <div class="modal-form">Game Over!
+          <div class="score">Final Score: <span class="points"></span> points</div>
+          <button class="reset">Try again?</button>
+        </div>
+      </div>
+    </main>
     <script>
       $(function(){
         var $body = $("figure")
