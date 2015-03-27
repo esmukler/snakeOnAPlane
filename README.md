@@ -1,2 +1,2 @@
-# JavaSnake
-A JavaScript version of the classic game of Snake vs. Himself!
+# Snake On A Plane
+A JavaScript version of the classic mobile game. Now on a plane!
