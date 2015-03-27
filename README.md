@@ -1,6 +1,6 @@
 # Snake On A Plane
 
-## [Let's play it live!](http://esmukler.github.io/SnakeOnAPlane)
+## [Let's play it live!](http://esmukler.github.io/snakeOnAPlane)
 
 A JavaScript version of the classic mobile game Snake. On a plane!
 
