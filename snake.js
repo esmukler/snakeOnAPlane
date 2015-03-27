@@ -12,8 +12,8 @@
     this.points = 0;
   }
 
-  Board.DIM_X = 20;
-  Board.DIM_Y = 20;
+  Board.DIM_X = 15;
+  Board.DIM_Y = 25;
 
   Board.prototype.setUpBoard = function () {
     var grid = [];
@@ -59,7 +59,7 @@
 
  var Snake = SnakeGame.Snake = function (board) {
    this.board = board;
-   this.segments = [new Coord([Board.DIM_X / 2, Board.DIM_Y / 2])];
+   this.segments = [new Coord([Math.floor(Board.DIM_X / 2), Math.floor(Board.DIM_Y / 2)])];
    this.dir = "E";
    this.inputDir = "E";
  }
@@ -77,6 +77,7 @@
      this.board.regenerateApple();
      this.board.updatePoints();
    }
+   console.log(this.segments[0]);
  };
 
  Snake.prototype.eatsApple = function() {

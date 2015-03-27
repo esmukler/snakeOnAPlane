@@ -17,12 +17,10 @@
       this.intervalId = window.setInterval(this.step.bind(this), this.speed)
       $(".play-or-pause").html("Pause (spacebar)");
       this.paused = false;
-      console.log("if")
     } else {
       window.clearInterval(this.intervalId);
       $(".play-or-pause").html("Play!");
       this.paused = true;
-      console.log("else")
     }
   };
 
@@ -85,7 +83,8 @@
     var id = 0;
     for (var i = 0; i < SnakeGame.Board.DIM_X; i++) {
       for (var j = 0; j < SnakeGame.Board.DIM_Y; j++) {
-        html += "<li data-id='" + id + "'></li>"
+        html += "<li data-idX='" + i +
+                "' data-idY='" + j + "'></li>"
         id += 1;
       }
     }
@@ -98,14 +97,13 @@
     $("li").filter(".apple").removeClass("apple");
 
     this.board.snake.segments.forEach( function(seg) {
-      var snakeId = (seg.x * SnakeGame.Board.DIM_X) + seg.y
-      var $snakeTile = $("li[data-id='" + snakeId + "']")
+      var $snakeTile = $("li[data-idX='" + seg.x + "'][data-idY='" + seg.y + "']")
       $snakeTile.addClass("snake");
     }.bind(this))
 
     var apple_coord = this.board.apple.coord
-    var appleId = apple_coord.x * SnakeGame.Board.DIM_X + apple_coord.y
-    var $appleTile = $("li[data-id='" + appleId + "']")
+    var $appleTile = $("li[data-idX='" + apple_coord.x + "'][data-idY='" + apple_coord.y + "']")
+
     $appleTile.addClass("apple");
   };
 

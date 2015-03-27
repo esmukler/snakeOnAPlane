@@ -1,4 +1,4 @@
-html, ul, li, p {
+html, ul, li, p, header {
   margin: 0;
   padding: 0;
   border: 0;
@@ -7,28 +7,47 @@ html, ul, li, p {
   background: transparent;
 }
 
+body {
+  background: #6183F2;
+}
+
 main {
-  width: 900px;
+  width: 850px;
+  height: 633px;
   position: relative;
   margin: auto;
+  padding-top:5px;
   text-align: center;
   background-image: url("seatback.jpg");
-  background-size: cover;
-  background-attachment: fixed;
+  background-size: contain;
+}
+
+figure {
+  position: absolute;
+  top: 122px;
+  left: 137px;
 }
 
 ul {
   list-style: none;
+  background: #000;
+}
+
+.game-board {
+  margin-top: 10px;
+  border: 2px solid black;
+  width: 500px;
 }
 
 header {
   font-size: 28px;
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
   width: 300px;
 }
 
+div.speed-btns,
 div.play-or-pause,
 div.message,
 div.points {
@@ -45,28 +64,26 @@ div.points {
   width: 100px;
 }
 
+div.speed-btns,
 div.play-or-pause {
-  width: 350px;
-  margin-bottom: 0;
-  margin-top: 20px;
+  width: 300px;
 }
 
 div.play-or-pause:hover {
   box-shadow: 2px 2px 2px green;
 }
 
+div.speed-btns {
+  margin-top: 425px;
+}
+
+div.speed-btns,
 div.play-or-pause,
 header,
 div.points,
 div.message {
   background: #B7DB84;
   border: 1px solid green;
-}
-
-.game-board {
-  margin: 20px auto;
-  border: 2px solid black;
-  width: 400px;
 }
 
 .group:after {
@@ -77,14 +94,14 @@ div.message {
 
 li {
   vertical-align: middle;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   float: left;
-  border: 1px solid black;
-  background: silver;
+  background: #000;
 }
 
 li.snake {
+  border-radius: 10px;
   background: green;
 }
 
@@ -104,17 +121,15 @@ li.apple {
 }
 
 .modal-form {
-  background: #F28F91;
-  border-radius: 10px;
-  padding: 100px;
-  font-size: 20px;
+  background: red;
+  top: 157px;
+  left: 210px;
   position: fixed;
-  margin: 100px 50%;
-  transform: translateX(-50%);
   z-index: 2;
-  width: 300px;
-  height: 300px;
-  top:0;
+  width: 505px;
+  height: 207px;
+  padding-top: 100px;
+  font-size: 28px;
 }
 
 .hidden {
