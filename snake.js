@@ -77,7 +77,6 @@
      this.board.regenerateApple();
      this.board.updatePoints();
    }
-   console.log(this.segments[0]);
  };
 
  Snake.prototype.eatsApple = function() {
@@ -137,9 +136,15 @@
 
  Apple.prototype.randomApple = function() {
    var coord = generateRandom();
-   while (this.board.snake.segments.indexOf(coord) !== -1) {
-     console.log("hello")
-     coord = generateRandom();
+   var segs = this.board.snake.segments;
+   var i = 0;
+   while (i < segs.length) {
+     if (segs[i].equals(coord)) {
+       coord = generateRandom();
+       i = 0;
+     } else {
+       i++;
+     }
    }
   return coord
  };
