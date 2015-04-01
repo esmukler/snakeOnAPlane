@@ -35,6 +35,7 @@
     var is_over = false
     var segments = this.snake.segments;
     for (var i = 0; i < segments.length; i++) {
+      
       // SNAKE goes out of bounds
       if ((segments[i].y >= Board.DIM_Y) || (segments[i].y < 0) ||
       (segments[i].x >= Board.DIM_X) || (segments[i].x < 0)) {

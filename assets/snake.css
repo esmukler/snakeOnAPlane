@@ -20,7 +20,7 @@ main {
   margin: auto;
   padding-top:5px;
   text-align: center;
-  background-image: url("seatback.jpg");
+  background-image: url("../assets/images/seatback.jpg");
   background-size: contain;
 }
 
@@ -113,7 +113,7 @@ li.snake {
 }
 
 li.apple {
-  background-image: url("apple.png");
+  background-image: url("../assets/images/apple.png");
   background-size: cover;
 }
 
